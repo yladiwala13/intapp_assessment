@@ -69,3 +69,7 @@ mrc_event = (
 # Map Attendee Status back to master contacts table
 contacts_df["LPD"] = contacts_df["E-mail"].map(lpd_event)
 contacts_df["19_MRC"] = contacts_df["E-mail"].map(mrc_event)
+
+print(contacts_df)
+
+# TODO: pytests?
