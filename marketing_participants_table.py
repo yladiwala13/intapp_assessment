@@ -1,18 +1,21 @@
-import pandas as pd
+"""
+Script to create Marketing Participants Table
+"""
 
-events_file_path = "Events.xlsx"
-contacts_file_path = "Contacts.xlsx"
+import pandas as pd
+from constants import EVENTS_PATH, CONTACTS_PATH
+
 
 # Build Contacts table as before
 # TODO: make this into a class to avoid repeat code
 
 # Read in both of the sheets in 'Contacts'
 t1_contacts_df = pd.read_excel(
-    contacts_file_path, sheet_name="Tier 1's", header=0, engine="openpyxl"
+    CONTACTS_PATH, sheet_name="Tier 1's", header=0, engine="openpyxl"
 )
 
 t2_contacts_df = pd.read_excel(
-    contacts_file_path, sheet_name="Tier 2's", header=0, engine="openpyxl"
+    CONTACTS_PATH, sheet_name="Tier 2's", header=0, engine="openpyxl"
 )
 
 # Mark if each contact is Tier 1 or Tier 2
@@ -30,14 +33,14 @@ contacts_df.reset_index(drop=True, inplace=True)
 
 # Read in the two event attendee lists
 lpd_event = pd.read_excel(
-    events_file_path,
+    EVENTS_PATH,
     sheet_name="Leaders and Partners Dinner",
     header=0,
     engine="openpyxl",
 )
 
 mrc_event = pd.read_excel(
-    events_file_path, sheet_name="2019 Market Re-Cap", header=0, engine="openpyxl"
+    EVENTS_PATH, sheet_name="2019 Market Re-Cap", header=0, engine="openpyxl"
 )
 
 # Rename 'Name' columns in both sheets and dedupe

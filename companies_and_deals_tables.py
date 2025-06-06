@@ -1,18 +1,18 @@
+"""
+Create Companies & Deals Table
+"""
 import pandas as pd
-
-# pe_comps_file_path = "PE Comps.xlsx"
-bsp_file_path = "Business Services Pipeline.xlsx"
-crhp_file_path = "Consumer Retail and Healthcare Pipeline.xlsx"
+from constants import BSP_PATH, CRHP_PATH
 
 bsp_df = pd.read_excel(
-    bsp_file_path, 
+    BSP_PATH,
     sheet_name = 'Sheet1',
     header=5,
     engine="openpyxl"
 )
 
 crhp_df = pd.read_excel(
-    crhp_file_path,
+    CRHP_PATH,
     sheet_name = 'CR&H Master',
     header = 8,
     engine = "openpyxl"
