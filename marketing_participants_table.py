@@ -77,9 +77,11 @@ contacts_info = contacts_df[
 ]
 
 # Left join marketing_df to contacts_info to bring contact info for each marketing participant
-marketing_participants = pd.merge(marketing_df, contacts_info, on="E-mail", how="left")
+marketing_participants_df = pd.merge(
+    marketing_df, contacts_info, on="E-mail", how="left"
+)
 
-print(marketing_participants)
+print(marketing_participants_df)
 
 # TODO: change column 'Group' to 'Vertical'?
 # TODO: include 'Tier'?

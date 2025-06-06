@@ -6,4 +6,4 @@ This git repository contains all scripts relevant to Part 2 of the Technical Ass
 Scripts:
 - master_contacts_table.py: creates a master Contacts table containing a contacts Firm, Name, Title, Group, Sub-Vertical, E-mail, Phone, Secondary Phone, City, Birthday, Coverage Person, Preferred Contact Method, Tier, and finally, their attendee status at both the Leaders and Partners Dinner & the 2019 Market Re-Cap events.
 
-# TODO: Update read me with marketing_participants_table
+- marketing_participants_table: creates a Marketing Participants table containing a participants Name, E-mail, attendee status at the Leaders and Partners Dinner, attendee status at the 2019 Market Re-Cap, Firm, Title, Group, Sub-Vertical, Phone, Secondary Phone, City, Birthday, & Preferred Contact Method
