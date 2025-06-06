@@ -63,3 +63,4 @@ contacts_df["19_MRC"] = contacts_df["E-mail"].map(mrc_event)
 print(contacts_df)
 
 # TODO: pytests?
+# TODO: Drop columns: Birthday, LPD, 19_MRC?

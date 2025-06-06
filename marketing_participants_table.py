@@ -80,3 +80,7 @@ contacts_info = contacts_df[
 marketing_participants = pd.merge(marketing_df, contacts_info, on="E-mail", how="left")
 
 print(marketing_participants)
+
+# TODO: change column 'Group' to 'Vertical'?
+# TODO: include 'Tier'?
+# TODO: pytests?
