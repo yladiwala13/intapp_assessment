@@ -2,12 +2,12 @@
 This class cleans all the tables to prepare them for final transformations & loading
 """
 import pandas as pd
-from constants import CONTACTS_PATH, EVENTS_PATH
+from constants import CONTACTS_PATH, EVENTS_PATH, BSP_PATH, CRHP_PATH
 
 
 class ContactsCleaner:
     """
-    Class to clean & transform raw contacts spreadsheet
+    Class to load, clean & transform raw contacts spreadsheet
     """
     def __init__(self):
         self.path = CONTACTS_PATH
@@ -52,7 +52,7 @@ class ContactsCleaner:
 
 class EventsCleaner:
     """
-    Class to clean & transform raw contacts spreadsheet
+    Class to load, clean & transform raw contacts spreadsheet
     """
     def __init__(self):
         self.path = EVENTS_PATH
@@ -107,3 +107,62 @@ class EventsCleaner:
         marketing_df = marketing_df[["Name", "E-mail", "LPD", "19_MRC"]].reset_index(drop=True)
 
         return marketing_df
+
+class BSPCleaner:
+    """
+    Class to load, clean, and transform raw business service pipeline table
+    """
+    def __init__(self):
+        self.path = BSP_PATH
+
+    def clean_and_transform(self):
+        """
+        Cleans & transforms raw BSP table
+        """
+        bsp_df = pd.read_excel(
+            self.path,
+            sheet_name = 'Sheet1',
+            header=5,
+            engine="openpyxl"
+        )
+
+        bsp_df['Pipeline'] = 'Business Services'
+
+        return bsp_df
+
+class CRHPCleaner:
+    """
+    Class to load, clean, and transofrm raw cosumer retail and healthcare table
+    """
+    def __init__(self):
+        self.path = CRHP_PATH
+
+    def clean_and_transform(self):
+        """
+        Cleans and transforms raw CRHP table
+        """
+        crhp_df = pd.read_excel(
+            self.path,
+            sheet_name = 'CR&H Master',
+            header = 8,
+            engine = "openpyxl"
+        )
+
+        crhp_df.drop("Unnamed: 0", axis=1, inplace=True)
+
+        crhp_df.dropna(how="all", inplace=True)
+
+        crhp_df.reset_index(drop=True, inplace=True)
+
+        crhp_df.drop(crhp_df.index[-2:], axis=0, inplace=True)
+
+        crhp_df.rename(
+            columns={
+                'Est. Equity Investment': 'Equity Investment Est.'
+            },
+            inplace=True
+        )
+
+        crhp_df['Pipeline'] = 'Consumer Retail and Healthcare'
+
+        return crhp_df

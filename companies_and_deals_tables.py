@@ -84,4 +84,4 @@ deals_df = combined_pipelines_df[
 ]
 
 print(company_df)
-print(deals_df)
+# print(deals_df)
