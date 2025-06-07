@@ -179,6 +179,7 @@ class PECompsCleaner:
         """
         Loads PE Comps table & normalizes column name
         """
+        # Reads in PE Comps table
         pe_comps_df = pd.read_excel(
             self.path,
             sheet_name="PE Firms",
@@ -186,6 +187,7 @@ class PECompsCleaner:
             engine = "openpyxl"
         )
 
+        # Removes line break from column name
         pe_comps_df.rename(
             columns={"AUM\n(Bns)": "AUM (Bns)"},
             inplace=True
