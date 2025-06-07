@@ -3,7 +3,7 @@ This class cleans all the tables to prepare them for final transformations & loa
 """
 
 import pandas as pd
-from constants import CONTACTS_PATH, EVENTS_PATH, BSP_PATH, CRHP_PATH
+from constants import CONTACTS_PATH, EVENTS_PATH, BSP_PATH, CRHP_PATH, PE_COMPS_PATH
 
 
 class ContactsCleaner:
@@ -165,3 +165,28 @@ class CRHPCleaner:
         crhp_df["Pipeline"] = "Consumer Retail and Healthcare"
 
         return crhp_df
+
+class PECompsCleaner:
+    """
+    Loads & Cleans PE Comps Table
+    NOTE: unsure of how to integrate this with the other tables.
+    This class simply loads and cleans the current table as a pandas dataframe
+    """
+    def __init__(self):
+        self.path = PE_COMPS_PATH
+
+    def clean_and_transform(self):
+        """
+        Loads PE Comps table & normalizes column name
+        """
+        pe_comps_df = pd.read_excel(
+            self.path,
+            sheet_name="PE Firms",
+            header = 2,
+            engine = "openpyxl"
+        )
+
+        pe_comps_df.rename(
+            columns={"AUM\n(Bns)": "AUM (Bns)"},
+            inplace=True
+        )
