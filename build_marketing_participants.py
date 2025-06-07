@@ -1,6 +1,7 @@
 """
 Script to create Marketing Participants Table
 """
+
 import pandas as pd
 from cleaner import ContactsCleaner, EventsCleaner
 
