@@ -80,3 +80,30 @@ class EventsCleaner:
         )
 
         return lpd_event, mrc_event
+  
+    def clean_and_transform(self, lpd_event, mrc_event):
+        """
+        Cleans and transforms raw events spreadsheet
+        """
+        # Rename 'Name' columns in both sheets and dedupe
+        lpd_participants = lpd_event.rename(
+            columns={"Name": "LPD_Name", "Attendee Status": "LPD"}
+        ).drop_duplicates(subset="E-mail", keep="first")
+
+        mrc_participants = mrc_event.rename(
+            columns={"Name": "MRC_Name", "Attendee Status": "19_MRC"}
+        ).drop_duplicates(subset="E-mail", keep="first")
+
+        # Outer join the two sheets to preserve all emails
+        marketing_df = pd.merge(lpd_participants, mrc_participants, on="E-mail", how="outer")
+
+        # Create a new 'Name' column and set it to LPD_Name values, \
+        # filling in N/A's with MRC_Name values
+        marketing_df["Name"] = marketing_df["LPD_Name"].fillna(marketing_df["MRC_Name"])
+
+        # Drop irrelevant columns & reorder column names
+        marketing_df = marketing_df.drop(columns=["LPD_Name", "MRC_Name"])
+
+        marketing_df = marketing_df[["Name", "E-mail", "LPD", "19_MRC"]].reset_index(drop=True)
+
+        return marketing_df
