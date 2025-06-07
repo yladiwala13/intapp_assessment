@@ -80,7 +80,7 @@ class EventsCleaner:
         )
 
         return lpd_event, mrc_event
-  
+
     def clean_and_transform(self, lpd_event, mrc_event):
         """
         Cleans and transforms raw events spreadsheet
