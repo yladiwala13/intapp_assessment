@@ -63,6 +63,7 @@ class EventsCleaner:
         """
         Loads in sheets for each event
         """
+        # Read in both of the sheets in 'Events'
         lpd_event = pd.read_excel(
             EVENTS_PATH,
             sheet_name=self.tier_sheets["lpd"],
@@ -120,10 +121,12 @@ class BSPCleaner:
         """
         Cleans & transforms raw BSP table
         """
+        # Read in Business Services Pipeline table
         bsp_df = pd.read_excel(
             self.path, sheet_name="Sheet1", header=5, engine="openpyxl"
         )
 
+        # Mark pipeline in new column
         bsp_df["Pipeline"] = "Business Services"
 
         return bsp_df
@@ -141,22 +144,24 @@ class CRHPCleaner:
         """
         Cleans and transforms raw CRHP table
         """
+        # Read in Consumer Reatil & Healthcare Pipeline table
         crhp_df = pd.read_excel(
             self.path, sheet_name="CR&H Master", header=8, engine="openpyxl"
         )
 
+        # Drop first row (was Null)
         crhp_df.drop("Unnamed: 0", axis=1, inplace=True)
-
+        # Drop all rows that are null
         crhp_df.dropna(how="all", inplace=True)
-
+        # Reset index
         crhp_df.reset_index(drop=True, inplace=True)
-
+        # Drop last two rows that contain footnotes
         crhp_df.drop(crhp_df.index[-2:], axis=0, inplace=True)
-
+        # Rename column to match column name in BSP table
         crhp_df.rename(
             columns={"Est. Equity Investment": "Equity Investment Est."}, inplace=True
         )
-
+        # Mark pipeline in a new column
         crhp_df["Pipeline"] = "Consumer Retail and Healthcare"
 
         return crhp_df
